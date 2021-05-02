@@ -1,0 +1,13 @@
+OSEK OSEK {
+
+    OS ExampleOS {
+        STATUS = EXTENDED;
+        ERRORHOOK = TRUE;
+        PRETASKHOOK = FALSE;
+        POSTTASKHOOK = FALSE;
+        STARTUPHOOK = FALSE;
+        SHUTDOWNHOOK = FALSE;
+        USERESSCHEDULER = FALSE;
+    };
+
+};
