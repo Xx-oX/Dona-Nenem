@@ -10,4 +10,73 @@ OSEK OSEK {
         USERESSCHEDULER = FALSE;
     };
 
+    APPMODE = AppMode1;
+
+    TASK TaskStart {
+        PRIORITY = 1;
+        ACTIVATION = 1;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = TRUE {
+            APPMODE = AppMode1;
+        }
+    };
+
+    TASK TaskA {
+        PRIORITY = 1;
+        ACTIVATION = 1;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    TASK TaskB {
+        PRIORITY = 2;
+        ACTIVATION = 1;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    TASK TaskC {
+        PRIORITY = 2;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    TASK TaskD {
+        PRIORITY = 1;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    EVENT EventP {
+        MASK = AUTO;
+    };
+
+    COUNTER CounterA {
+        MINCYCLE = 10;
+        MAXALLOWEDVALUE = 20;
+        TICKSPERBASE = 10;
+        COUNTERTYPE = SOFTWARE;
+    };
+
+    ALARM epAlarmA {
+        COUNTER = CounterA;
+        ACTION = EPCALLBACK {
+            ALARMCALLBACKNAME = "ExpiryPointCallbackFuncA";
+        };
+        AUTOSTART =FALSE;
+    };
+
+
 };

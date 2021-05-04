@@ -92,6 +92,7 @@
         <ELEMENTS>
             <COUNTER>
                 <SHORT-NAME>CounterA</SHORT-NAME>
+                <MINCYCLE>10</MINCYCLE>
                 <MAXALLOWEDVALUE>20</MAXALLOWEDVALUE>
                 <TICKSPERBASE>10</TICKSPERBASE>
                 <TYPE>SOFTWARE</TYPE>
