@@ -121,8 +121,8 @@ def gen(AST, file):
             if alarm.find("AUTOSTART").find("VALUE").text == "TRUE":
                 fp.write(" {\n")
                 fp.write("            ALARMTIME = " + alarm.find("AUTOSTART").find("ALARMTIME").text + ";\n")
-                fp.write("            ALARMTIME = " + alarm.find("AUTOSTART").find("CYCLETIME").text + ";\n")
-                fp.write("            ALARMTIME = " + alarm.find("AUTOSTART").find("APPMODE").text + ";\n")
+                fp.write("            CYCLETIME = " + alarm.find("AUTOSTART").find("CYCLETIME").text + ";\n")
+                fp.write("            APPMODE = " + alarm.find("AUTOSTART").find("APPMODE").text + ";\n")
                 fp.write("        }\n")
             else:
                 fp.write(";\n")    
@@ -130,8 +130,73 @@ def gen(AST, file):
             fp.write("    };\n\n")
         # end ALARMCFG
 
+        # begin SCHEDULETABLECFG
+        for st in scheduleTableList:
+            fp.write("    SCHEDULETABLE " + st.find("SHORT-NAME").text + "{\n")
+            fp.write("        DURATION = " + st.find("DURATION").text + ";\n")
+            fp.write("        INITOFFSET = " + st.find("INITOFFSET").text + ";\n")
+            fp.write("        FINALDELAY = " + st.find("FINALDELAY").text + ";\n")
+            fp.write("        SYNCSTRATEGY = " + st.find("SYNCSTRATEGY").text + ";\n")
+            fp.write("        REPEATING = " + st.find("REPEATING").text + ";\n")
+            fp.write("        COUNTER = " + st.find("COUNTER").find("SHORT-NAME").text + ";\n")
+            fp.write("        CALLBACKALARM = " + st.find("CALLBACKALARM").text + ";\n")
+            
+            expiryPointList = list()
+            for element in st.find("EXPIRYPOINTS").find("ELEMENTS").findall("EXPIRYPOINT"):
+                expiryPointList.append(element)
+
+            for ep in expiryPointList:
+                fp.write("        EXPIRYPOINT " + ep.find("SHORT-NAME").text + " {\n")
+                fp.write("            OFFSET = " + ep.find("OFFSET").text + ";\n")
+                fp.write("            MAXSHORTEN = " + ep.find("MAXSHORTEN").text + ";\n")
+                fp.write("            MAXLENGTHEN = " + ep.find("MAXLENGTHEN").text + ";\n")
+                
+                epTaskList = list()
+                epEventList = list()
+
+                if ep.find("TASKACTIVATION"):
+                    for t in ep.find("TASKACTIVATION").find("ELEMENTS").findall("TASK"):
+                        epTaskList.append(t)
+                
+                if ep.find("EVENTSETTINGS"):
+                    for e in ep.find("EVENTSETTINGS").find("ELEMENTS").findall("EVENTSETTING"):
+                        epEventList.append(e)
+
+                if not epTaskList and not epEventList:
+                    print("Semantic Error -> Taskactivation and eventsetting in a expiry point can't be both empty.")
+                    return
+                
+                if epTaskList:
+                    fp.write("            TASKACTIVATION = ")
+                    for t in epTaskList:
+                        fp.write(t.find("SHORT-NAME").text)
+                        if t == epTaskList[-1]:
+                            fp.write(";\n")
+                        else:
+                            fp.write(", ")
+
+                for e in epEventList:
+                    fp.write("            EVENTSETTING " + e.find("SHORT-NAME").text + " {\n")
+                    fp.write("                TASK = " + e.find("TASK").find("SHORT-NAME").text + ";\n")
+                    fp.write("                EVENT = " + e.find("EVENT").find("SHORT-NAME").text + ";\n")
+                    fp.write("            }\n")
+
+                fp.write("        };\n")
+                
+            fp.write("        AUTOSTART =" + alarm.find("AUTOSTART").find("VALUE").text)
+            if alarm.find("AUTOSTART").find("VALUE").text == "TRUE":
+                fp.write(" {\n")
+                fp.write("            AUTOSTARTTYPE = " + st.find("AUTOSTART").find("TYPE").text + ";\n")
+                fp.write("            APPMODE = " + st.find("AUTOSTART").find("APPMODE").text + ";\n")
+                fp.write("        }\n")
+            else:
+                fp.write(";\n")              
+                
+            fp.write("    };\n\n")
+        # end SCHEDULETABLECFG
+
         # end OSEK
-        fp.write("\n};\n")
+        fp.write("};\n")
 
         fp.close()
     #except AttributeError:
