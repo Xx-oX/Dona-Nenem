@@ -6,7 +6,7 @@
 
 ## Usage
 ```
-python3 ./dona_nenem/main.py
+python3 ./dona_nenem/main.py INPUT_FILE_NAME
 ```
 
 ## Methods
