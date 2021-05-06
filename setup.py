@@ -3,10 +3,10 @@
 from setuptools import setup
 
 setup(
-    name="Dona-Nenem",
+    name="Dona_Nenem",
     version="0.1.0",
     description="Changing arxml code to oil code.",
     author="Xx-oX",
-    packages=["srcs"],
-    scripts=["srcs/main.py"],
+    packages=["dona_nenem"],
+    scripts=["dona_nenem/main.py"],
 )
