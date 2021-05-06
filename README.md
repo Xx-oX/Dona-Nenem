@@ -11,8 +11,8 @@ python3 ./dona_nenem/main.py
 
 ## Methods
 * **parse**
-  * Use xml.etree.ElementTree to parse the input sorce file
-  * Return a element list
+  * Use xml.etree.ElementTree to parse the input sorce file.
+  * Return a element list.
 * **gen**
   * Generating the output target file.
 
