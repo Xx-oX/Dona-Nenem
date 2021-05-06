@@ -78,5 +78,30 @@ OSEK OSEK {
         AUTOSTART =FALSE;
     };
 
+    SCHEDULETABLE ScheduleTableA{
+        DURATION = 10;
+        INITOFFSET = 2;
+        FINALDELAY = 6;
+        SYNCSTRATEGY = NONE;
+        REPEATING = TRUE;
+        COUNTER = CounterA;
+        CALLBACKALARM = epAlarmA;
+        EXPIRYPOINT EP1 {
+            OFFSET = 2;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            TASKACTIVATION = TaskA, TaskB;
+        };
+        EXPIRYPOINT EP2 {
+            OFFSET = 4;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            EVENTSETTING E1 {
+                TASK = TaskD;
+                EVENT = EventP;
+            }
+        };
+        AUTOSTART =FALSE;
+    };
 
 };

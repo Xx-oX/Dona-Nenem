@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+import sys
 import xml.etree.ElementTree as ET
 
 def parse(file):
@@ -42,7 +45,7 @@ def gen(AST, file):
         elif element.tag == "SCHEDULETABLE":
             scheduleTableList.append(element)
 
-    #try:
+    try:
         fp = open(file, "w")
 
         # begin OSEK
@@ -199,9 +202,25 @@ def gen(AST, file):
         fp.write("};\n")
 
         fp.close()
-    #except AttributeError:
-    #s    print("Tag Error!!!")
-    #except:
-    #    print("Code Gen Error!!!")
+    except AttributeError:
+       print("Tag Error!!!")
+    except:
+       print("Code Gen Error!!!")
 
     print("Complete!!!")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        sys.exit("Wrong argument!!!")
+        
+    file_in = ""
+    file_out = ""
+    
+    file_in = sys.argv[1]
+    if file_in.count(".arxml") < 1:
+        sys.exit("Wrong input file type!!")
+    file_out = file_in[:file_in.index(".arxml")] + ".oil"
+
+    AST = parse(file_in)
+    gen(AST, file_out)
