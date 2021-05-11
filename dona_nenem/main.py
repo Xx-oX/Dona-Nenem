@@ -143,7 +143,10 @@ def gen(AST, file):
             fp.write("        REPEATING = " + st.find("REPEATING").text + ";\n")
             fp.write("        COUNTER = " + st.find("COUNTER").find("SHORT-NAME").text + ";\n")
             fp.write("        CALLBACKALARM = " + st.find("CALLBACKALARM").text + ";\n")
-            # TODO SYNCCOUNTER
+
+            if st.find("SYNCSTRATEGY").text == "EXPLICIT":
+                fp.write("        SYNCCOUNTER = " + st.find("SYNCCOUNTER").find("SHORT-NAME").text + ";\n")
+                fp.write("        EXPLICITPRECISION = " + st.find("EXPLICITPRECISION").text + ";\n")            
 
             expiryPointList = list()
             for element in st.find("EXPIRYPOINTS").find("ELEMENTS").findall("EXPIRYPOINT"):

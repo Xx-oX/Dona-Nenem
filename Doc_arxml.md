@@ -81,6 +81,7 @@ Integer -> (0-9)+
     * "<"SHORT-NAME">" -> String
   * "<"SYNCCOUNTER">": if syncstrategy = "EXPLICIT"
     * "<"SHORT-NAME">" -> String
+ * "<"EXPLICITPRECISION">": if syncstrategy = "EXPLICIT", uint32 -> Integer
   * "<"CALLBACKALARM">" -> String
   * "<"AUTOSTART">"
     * "<"VALUE">" -> Boolaen
