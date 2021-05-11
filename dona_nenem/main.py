@@ -62,10 +62,10 @@ def gen(AST, file):
         fp.write("        USERESSCHEDULER = " + osCfg.find("USERESSCHEDULER").text + ";\n")
         fp.write("    };\n\n")
         #end OSCFG
-        
+
         # begin APPMODE
         fp.write("    APPMODE = " + appMode + ";\n\n")
-        # end APPMODE 
+        # end APPMODE
 
         # begin TASKCFFG
         for task in taskList:
@@ -82,8 +82,8 @@ def gen(AST, file):
                 fp.write("            APPMODE = " + task.find("AUTOSTART").find("APPMODE").text + ";\n")
                 fp.write("        }\n")
             else:
-                fp.write(";\n")            
-            
+                fp.write(";\n")
+
             fp.write("    };\n\n")
         # end TASKCFG
 
@@ -108,7 +108,7 @@ def gen(AST, file):
         for alarm in alarmList:
             fp.write("    ALARM " + alarm.find("SHORT-NAME").text + " {\n")
             fp.write("        COUNTER = " + alarm.find("COUNTER").find("SHORT-NAME").text + ";\n")
-            
+
             fp.write("        ACTION = " + alarm.find("ACTION").find("TYPE").text + " {\n")
             alarmAction = alarm.find("ACTION")
             if alarmAction.find("TYPE").text == "ACTIVATETASK":
@@ -128,7 +128,7 @@ def gen(AST, file):
                 fp.write("            APPMODE = " + alarm.find("AUTOSTART").find("APPMODE").text + ";\n")
                 fp.write("        }\n")
             else:
-                fp.write(";\n")    
+                fp.write(";\n")
 
             fp.write("    };\n\n")
         # end ALARMCFG
@@ -143,7 +143,8 @@ def gen(AST, file):
             fp.write("        REPEATING = " + st.find("REPEATING").text + ";\n")
             fp.write("        COUNTER = " + st.find("COUNTER").find("SHORT-NAME").text + ";\n")
             fp.write("        CALLBACKALARM = " + st.find("CALLBACKALARM").text + ";\n")
-            
+            # TODO SYNCCOUNTER
+
             expiryPointList = list()
             for element in st.find("EXPIRYPOINTS").find("ELEMENTS").findall("EXPIRYPOINT"):
                 expiryPointList.append(element)
@@ -153,14 +154,14 @@ def gen(AST, file):
                 fp.write("            OFFSET = " + ep.find("OFFSET").text + ";\n")
                 fp.write("            MAXSHORTEN = " + ep.find("MAXSHORTEN").text + ";\n")
                 fp.write("            MAXLENGTHEN = " + ep.find("MAXLENGTHEN").text + ";\n")
-                
+
                 epTaskList = list()
                 epEventList = list()
 
                 if ep.find("TASKACTIVATION"):
                     for t in ep.find("TASKACTIVATION").find("ELEMENTS").findall("TASK"):
                         epTaskList.append(t)
-                
+
                 if ep.find("EVENTSETTINGS"):
                     for e in ep.find("EVENTSETTINGS").find("ELEMENTS").findall("EVENTSETTING"):
                         epEventList.append(e)
@@ -168,7 +169,7 @@ def gen(AST, file):
                 if not epTaskList and not epEventList:
                     print("Semantic Error -> Taskactivation and eventsetting in a expiry point can't be both empty.")
                     return
-                
+
                 if epTaskList:
                     fp.write("            TASKACTIVATION = ")
                     for t in epTaskList:
@@ -185,7 +186,7 @@ def gen(AST, file):
                     fp.write("            }\n")
 
                 fp.write("        };\n")
-                
+
             fp.write("        AUTOSTART =" + alarm.find("AUTOSTART").find("VALUE").text)
             if alarm.find("AUTOSTART").find("VALUE").text == "TRUE":
                 fp.write(" {\n")
@@ -193,8 +194,8 @@ def gen(AST, file):
                 fp.write("            APPMODE = " + st.find("AUTOSTART").find("APPMODE").text + ";\n")
                 fp.write("        }\n")
             else:
-                fp.write(";\n")              
-                
+                fp.write(";\n")
+
             fp.write("    };\n\n")
         # end SCHEDULETABLECFG
 
@@ -213,10 +214,10 @@ def gen(AST, file):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit("Wrong argument!!!")
-        
+
     file_in = ""
     file_out = ""
-    
+
     file_in = sys.argv[1]
     if file_in.count(".arxml") < 1:
         sys.exit("Wrong input file type!!")

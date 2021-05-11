@@ -21,3 +21,8 @@ python3 ./dona_nenem/main.py INPUT_FILE_NAME
 ```
 python3 setup.py install
 ```
+
+## TODO
++ syntax & sementric examination
++ automatically generates internal modules(e.g. CallbackAlarm)
++ add unsupported modules
