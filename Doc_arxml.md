@@ -38,8 +38,10 @@ Integer -> (0-9)+
   * "<"STACK">": uint16 -> Integer
   * "<"TYPE">": enum -> "BASE" | "EXTENDED"
   * "<"SCHEDULE">": enum -> "NON" | "FULL"
-  * "<"RESOURCE">": name of resource -> String
-  * "<"EVENT">": name of event -> String
+  * "<"RESOURCE">"
+    * "<"SHORT-NAME">": name of resource -> String
+  * "<"EVENT">"
+    * "<"SHORT-NAME">": name of event -> String
   * "<"AUTOSTART">"
     * "<"VALUE">" -> Boolaen
     * "<"APPMODE">": if value = "TRUE" -> String

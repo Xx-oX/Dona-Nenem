@@ -84,6 +84,28 @@ def gen(AST, file):
             else:
                 fp.write(";\n")
 
+            if task.find("TYPE").text == "EXTENDED":
+                taskEventList = list()
+                taskResourceList = list()
+                if task.find("EVENT"):
+                    for element in task.findall("EVENT"):
+                        taskEventList.append(element.find("SHORT-NAME").text)
+                    fp.write("        EVENT = ")
+                    for e in taskEventList:
+                        fp.write(e)
+                        if e == taskEventList[-1]:
+                            fp.write(";\n")
+                        else:
+                            fp.write(" | ")
+
+                if task.find("RESOURCE"):
+                    for element in task.findall("RESOURCE"):
+                        taskResourceList.append(element.find("SHORT-NAME").text)
+                    for e in taskResourceList:
+                        fp.write("        RESOURCE = " + e + ";\n")
+
+
+
             fp.write("    };\n\n")
         # end TASKCFG
 
@@ -146,11 +168,10 @@ def gen(AST, file):
 
             if st.find("SYNCSTRATEGY").text == "EXPLICIT":
                 fp.write("        SYNCCOUNTER = " + st.find("SYNCCOUNTER").find("SHORT-NAME").text + ";\n")
-                fp.write("        EXPLICITPRECISION = " + st.find("EXPLICITPRECISION").text + ";\n")            
+                fp.write("        EXPLICITPRECISION = " + st.find("EXPLICITPRECISION").text + ";\n")
 
             expiryPointList = list()
-            for element in st.find("EXPIRYPOINTS").find("ELEMENTS").findall("EXPIRYPOINT"):
-                expiryPointList.append(element)
+            expiryPointList = st.find("EXPIRYPOINTS").find("ELEMENTS").findall("EXPIRYPOINT")
 
             for ep in expiryPointList:
                 fp.write("        EXPIRYPOINT " + ep.find("SHORT-NAME").text + " {\n")

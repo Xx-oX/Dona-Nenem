@@ -1,0 +1,192 @@
+OSEK OSEK {
+
+    OS ExampleOS {
+        STATUS = EXTENDED;
+        ERRORHOOK = TRUE;
+        PRETASKHOOK = FALSE;
+        POSTTASKHOOK = FALSE;
+        STARTUPHOOK = TRUE;
+        SHUTDOWNHOOK = FALSE;
+        USERESSCHEDULER = FALSE;
+    };
+
+    APPMODE = AppMode1;
+
+    TASK TaskA {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ;
+    };
+
+    TASK TaskB {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ;
+    };
+
+    TASK TaskC {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ | EventR;
+    };
+
+    TASK TaskD {
+        PRIORITY = 4;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    TASK TaskE {
+        PRIORITY = 4;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    EVENT EventP {
+        MASK = AUTO;
+    };
+
+    EVENT EventQ {
+        MASK = 1;
+    };
+
+    EVENT EventR {
+        MASK = 23;
+    };
+
+    COUNTER CounterA {
+        MINCYCLE = 10;
+        MAXALLOWEDVALUE = 39;
+        TICKSPERBASE = 10;
+        COUNTERTYPE = SOFTWARE;
+    };
+
+    COUNTER CounterB {
+        MINCYCLE = 10;
+        MAXALLOWEDVALUE = 49;
+        TICKSPERBASE = 10;
+        COUNTERTYPE = SOFTWARE;
+    };
+
+    ALARM epAlarmA {
+        COUNTER = CounterA;
+        ACTION = EPCALLBACK {
+            ALARMCALLBACKNAME = "ExpiryPointCallbackFuncA";
+        };
+        AUTOSTART =FALSE;
+    };
+
+    ALARM epAlarmB {
+        COUNTER = CounterB;
+        ACTION = EPCALLBACK {
+            ALARMCALLBACKNAME = "ExpiryPointCallbackFuncB";
+        };
+        AUTOSTART =FALSE;
+    };
+
+    SCHEDULETABLE ScheduleTableA{
+        DURATION = 60;
+        INITOFFSET = 2;
+        FINALDELAY = 18;
+        SYNCSTRATEGY = NONE;
+        REPEATING = TRUE;
+        COUNTER = CounterA;
+        CALLBACKALARM = epAlarmA;
+        EXPIRYPOINT EP1 {
+            OFFSET = 2;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            EVENTSETTING E1 {
+                TASK = TaskA;
+                EVENT = EventP;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskB;
+                EVENT = EventQ;
+            }
+        };
+        EXPIRYPOINT EP2 {
+            OFFSET = 11;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            TASKACTIVATION = TaskC, TaskD;
+            EVENTSETTING E1 {
+                TASK = TaskB;
+                EVENT = EventP;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskA;
+                EVENT = EventQ;
+            }
+            EVENTSETTING E3 {
+                TASK = TaskC;
+                EVENT = EventP;
+            }
+        };
+        EXPIRYPOINT EP3 {
+            OFFSET = 26;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            EVENTSETTING E1 {
+                TASK = TaskB;
+                EVENT = EventQ;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskC;
+                EVENT = EventR;
+            }
+        };
+        EXPIRYPOINT EP4 {
+            OFFSET = 33;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            TASKACTIVATION = TaskE, TaskC;
+        };
+        EXPIRYPOINT EP5 {
+            OFFSET = 42;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            EVENTSETTING E1 {
+                TASK = TaskC;
+                EVENT = EventQ;
+            }
+        };
+        AUTOSTART =FALSE;
+    };
+
+    SCHEDULETABLE ScheduleTableB{
+        DURATION = 40;
+        INITOFFSET = 13;
+        FINALDELAY = 27;
+        SYNCSTRATEGY = NONE;
+        REPEATING = TRUE;
+        COUNTER = CounterB;
+        CALLBACKALARM = epAlarmB;
+        EXPIRYPOINT EP1 {
+            OFFSET = 13;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            TASKACTIVATION = TaskA, TaskB;
+        };
+        AUTOSTART =FALSE;
+    };
+
+};
