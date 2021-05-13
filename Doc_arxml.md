@@ -6,11 +6,11 @@
 ## Definition & Hierarchy
 
 ### Symbols
-MODULE -> OS | Task | Event | Counter | Alarm | ScheduleTable
-MODULE_UPPER -> OS | TASK | EVENT | COUNTER | ALARM | SCHEDULETABLE
-String -> (a-z | A-Z)(0-9 | a-z | A-Z)*
-Boolean -> "TRUE" | "FALSE"
-Integer -> (0-9)+
+* MODULE -> OS | Task | Event | Counter | Alarm | ScheduleTable
+* MODULE_UPPER -> OS | TASK | EVENT | COUNTER | ALARM | SCHEDULETABLE
+* String -> (a-z | A-Z)(0-9 | a-z | A-Z)*
+* Boolean -> "TRUE" | "FALSE"
+* Integer -> (0-9)+
 
 ### Top Module
 * "<"AR-PACKAGES">": root, same as normal arxml
