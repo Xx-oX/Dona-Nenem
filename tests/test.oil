@@ -5,7 +5,7 @@ OSEK OSEK {
         ERRORHOOK = TRUE;
         PRETASKHOOK = FALSE;
         POSTTASKHOOK = FALSE;
-        STARTUPHOOK = FALSE;
+        STARTUPHOOK = TRUE;
         SHUTDOWNHOOK = FALSE;
         USERESSCHEDULER = FALSE;
     };
@@ -57,6 +57,7 @@ OSEK OSEK {
         TYPE = EXTENDED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
+        EVENT = EventP;
     };
 
     EVENT EventP {
@@ -65,7 +66,7 @@ OSEK OSEK {
 
     COUNTER CounterA {
         MINCYCLE = 10;
-        MAXALLOWEDVALUE = 20;
+        MAXALLOWEDVALUE = 19;
         TICKSPERBASE = 10;
         COUNTERTYPE = SOFTWARE;
     };
@@ -79,7 +80,7 @@ OSEK OSEK {
     };
 
     SCHEDULETABLE ScheduleTableA{
-        DURATION = 10;
+        DURATION = 20;
         INITOFFSET = 2;
         FINALDELAY = 6;
         SYNCSTRATEGY = NONE;

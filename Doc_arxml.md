@@ -140,7 +140,7 @@ Integer -> (0-9)+
                 <ERRORHOOK>TRUE</ERRORHOOK>
                 <PRETASKHOOK>FALSE</PRETASKHOOK>
                 <POSTTASKHOOK>FALSE</POSTTASKHOOK>
-                <STARTUPHOOK>FALSE</STARTUPHOOK>
+                <STARTUPHOOK>TRUE</STARTUPHOOK>
                 <SHUTDOWNHOOK>FALSE</SHUTDOWNHOOK>
                 <USERESSCHEDULER>FALSE</USERESSCHEDULER>
             </OS>
@@ -205,7 +205,9 @@ Integer -> (0-9)+
                 <AUTOSTART>
                     <VALUE>FALSE</VALUE>
                 </AUTOSTART>
-                <EVENT>EventP</EVENT>
+                <EVENT>
+                    <SHORT-NAME>EventP</SHORT-NAME>
+                </EVENT>
             </TASK>
         </ELEMENTS>
     </AR-PACKAGE>
@@ -224,7 +226,7 @@ Integer -> (0-9)+
             <COUNTER>
                 <SHORT-NAME>CounterA</SHORT-NAME>
                 <MINCYCLE>10</MINCYCLE>
-                <MAXALLOWEDVALUE>20</MAXALLOWEDVALUE>
+                <MAXALLOWEDVALUE>19</MAXALLOWEDVALUE>
                 <TICKSPERBASE>10</TICKSPERBASE>
                 <TYPE>SOFTWARE</TYPE>
             </COUNTER>
@@ -253,7 +255,7 @@ Integer -> (0-9)+
         <ELEMENTS>
             <SCHEDULETABLE>
                 <SHORT-NAME>ScheduleTableA</SHORT-NAME>
-                <DURATION>10</DURATION>
+                <DURATION>20</DURATION>
                 <INITOFFSET>2</INITOFFSET>
                 <FINALDELAY>6</FINALDELAY>
                 <SYNCSTRATEGY>NONE</SYNCSTRATEGY>
