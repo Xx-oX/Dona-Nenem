@@ -2,7 +2,7 @@
 
 ## Description
 * Compile AUTOSAR(*arxml) configure code to OIL code.
-* Only suitable for specific type of arxml schema.
+* Only suitable for specific type of arxml schema(see Doc_arxml.md).
 
 ## Usage
 ```
@@ -23,6 +23,5 @@ python3 setup.py install
 ```
 
 ## TODO
-+ syntax & sementric examination
 + automatically generates internal modules(e.g. CallbackAlarm)
 + add unsupported modules
