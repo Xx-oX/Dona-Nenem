@@ -19,7 +19,7 @@ OSEK OSEK {
         TYPE = EXTENDED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-        EVENT = EventP | EventQ;
+        EVENT = EventP;
     };
 
     TASK TaskB {
@@ -29,7 +29,7 @@ OSEK OSEK {
         TYPE = EXTENDED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-        EVENT = EventP | EventQ;
+        EVENT = EventP;
     };
 
     TASK TaskC {
@@ -39,25 +39,17 @@ OSEK OSEK {
         TYPE = EXTENDED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-        EVENT = EventP | EventQ | EventR;
+        EVENT = EventP | EventQ;
     };
 
     TASK TaskD {
-        PRIORITY = 4;
+        PRIORITY = 3;
         ACTIVATION = 10;
         STACK = 512;
-        TYPE = BASIC;
+        TYPE = EXTENDED;
         SCHEDULE = FULL;
         AUTOSTART = FALSE;
-    };
-
-    TASK TaskE {
-        PRIORITY = 4;
-        ACTIVATION = 10;
-        STACK = 512;
-        TYPE = BASIC;
-        SCHEDULE = FULL;
-        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ;
     };
 
     EVENT EventP {
@@ -68,20 +60,16 @@ OSEK OSEK {
         MASK = 1;
     };
 
-    EVENT EventR {
-        MASK = 23;
-    };
-
     COUNTER CounterA {
         MINCYCLE = 10;
-        MAXALLOWEDVALUE = 59;
+        MAXALLOWEDVALUE = 39;
         TICKSPERBASE = 10;
         COUNTERTYPE = SOFTWARE;
     };
 
     COUNTER CounterB {
         MINCYCLE = 10;
-        MAXALLOWEDVALUE = 39;
+        MAXALLOWEDVALUE = 49;
         TICKSPERBASE = 10;
         COUNTERTYPE = SOFTWARE;
     };
@@ -103,88 +91,79 @@ OSEK OSEK {
     };
 
     SCHEDULETABLE ScheduleTableA{
-        DURATION = 60;
-        INITOFFSET = 2;
-        FINALDELAY = 18;
-        SYNCSTRATEGY = NONE;
+        DURATION = 40;
+        INITOFFSET = 7;
+        FINALDELAY = 11;
+        SYNCSTRATEGY = IMPLICIT;
         REPEATING = TRUE;
         COUNTER = CounterA;
         CALLBACKALARM = epAlarmA;
         EXPIRYPOINT EP1 {
-            OFFSET = 2;
+            OFFSET = 7;
             MAXSHORTEN = 0;
             MAXLENGTHEN = 0;
-            EVENTSETTING E1 {
-                TASK = TaskA;
-                EVENT = EventP;
-            }
-            EVENTSETTING E2 {
-                TASK = TaskB;
-                EVENT = EventQ;
-            }
+            TASKACTIVATION = TaskA, TaskB;
         };
         EXPIRYPOINT EP2 {
-            OFFSET = 11;
+            OFFSET = 24;
             MAXSHORTEN = 0;
             MAXLENGTHEN = 0;
-            TASKACTIVATION = TaskC, TaskD;
             EVENTSETTING E1 {
-                TASK = TaskB;
+                TASK = TaskA;
                 EVENT = EventP;
             }
             EVENTSETTING E2 {
-                TASK = TaskA;
-                EVENT = EventQ;
-            }
-            EVENTSETTING E3 {
                 TASK = TaskC;
-                EVENT = EventP;
+                EVENT = EventQ;
             }
         };
         EXPIRYPOINT EP3 {
-            OFFSET = 26;
+            OFFSET = 29;
             MAXSHORTEN = 0;
             MAXLENGTHEN = 0;
+            TASKACTIVATION = TaskC;
             EVENTSETTING E1 {
                 TASK = TaskB;
-                EVENT = EventQ;
-            }
-            EVENTSETTING E2 {
-                TASK = TaskC;
-                EVENT = EventR;
-            }
-        };
-        EXPIRYPOINT EP4 {
-            OFFSET = 33;
-            MAXSHORTEN = 0;
-            MAXLENGTHEN = 0;
-            TASKACTIVATION = TaskE, TaskC;
-        };
-        EXPIRYPOINT EP5 {
-            OFFSET = 42;
-            MAXSHORTEN = 0;
-            MAXLENGTHEN = 0;
-            EVENTSETTING E1 {
-                TASK = TaskC;
-                EVENT = EventQ;
+                EVENT = EventP;
             }
         };
         AUTOSTART =FALSE;
     };
 
     SCHEDULETABLE ScheduleTableB{
-        DURATION = 40;
-        INITOFFSET = 13;
-        FINALDELAY = 27;
-        SYNCSTRATEGY = NONE;
+        DURATION = 50;
+        INITOFFSET = 19;
+        FINALDELAY = 4;
+        SYNCSTRATEGY = IMPLICIT;
         REPEATING = TRUE;
         COUNTER = CounterB;
         CALLBACKALARM = epAlarmB;
         EXPIRYPOINT EP1 {
-            OFFSET = 13;
+            OFFSET = 19;
+            MAXSHORTEN = 0;
+            MAXLENGTHEN = 0;
+            EVENTSETTING E1 {
+                TASK = TaskC;
+                EVENT = EventP;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskD;
+                EVENT = EventP;
+            }
+        };
+        EXPIRYPOINT EP2 {
+            OFFSET = 46;
             MAXSHORTEN = 0;
             MAXLENGTHEN = 0;
             TASKACTIVATION = TaskA, TaskB;
+            EVENTSETTING E1 {
+                TASK = TaskC;
+                EVENT = EventQ;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskD;
+                EVENT = EventQ;
+            }
         };
         AUTOSTART =FALSE;
     };

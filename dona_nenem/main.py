@@ -1,25 +1,36 @@
 #!/usr/bin/env python
 
 import sys
+import traceback
 import xml.etree.ElementTree as ET
 
 def parse(file):
-    print("Parsing...")
-    tree = ET.parse(file)
-    root = tree.getroot()
     AST = list()
     try:
+        print("Parsing...")
+        tree = ET.parse(file)
+        root = tree.getroot()
         for arpackage in root.findall("AR-PACKAGE"):
             for elements in arpackage.findall("ELEMENTS"):
                 for element in elements:
                     AST.append(element)
-    except:
-        print("Parsing Error!!!")
-
-    print("Complete!!!")
+        print("Complete!!!")
+    except Exception as e:
+        errType = e.__class__.__name__
+        errDetail = e.args[0]
+        cl, exc, tb = sys.exc_info()
+        lastCallStack = traceback.extract_tb(tb)[-1]
+        fileName = lastCallStack[0]
+        lineNum = lastCallStack[1]
+        funcName = lastCallStack[2]
+        errMsg = "Parsing Error!!!\nFile \"{}\", line {}, in {}: [{}] {}".format(fileName, lineNum, funcName, errType, errDetail)
+        print(errMsg)
+        AST = list()
     return AST
 
 def gen(AST, file):
+    if not AST:
+        return
     print("Generating OIL Code...")
     taskList = list()
     eventList = list()
@@ -227,12 +238,19 @@ def gen(AST, file):
         fp.write("};\n")
 
         fp.close()
-    except AttributeError:
-       print("Tag Error!!!")
-    except:
-       print("Code Gen Error!!!")
+        print("Complete!!!")
 
-    print("Complete!!!")
+    except Exception as e:
+        errType = e.__class__.__name__
+        errDetail = e.args[0]
+        cl, exc, tb = sys.exc_info()
+        lastCallStack = traceback.extract_tb(tb)[-1]
+        fileName = lastCallStack[0]
+        lineNum = lastCallStack[1]
+        funcName = lastCallStack[2]
+        errMsg = "Code Gen Error!!!\nFile \"{}\", line {}, in {}: [{}] {}".format(fileName, lineNum, funcName, errType, errDetail)
+        print(errMsg)
+        open(file, 'w').close()
 
 
 if __name__ == "__main__":

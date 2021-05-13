@@ -1,0 +1,257 @@
+OSEK OSEK {
+
+    OS ExampleOS {
+        STATUS = EXTENDED;
+        ERRORHOOK = TRUE;
+        PRETASKHOOK = FALSE;
+        POSTTASKHOOK = FALSE;
+        STARTUPHOOK = TRUE;
+        SHUTDOWNHOOK = FALSE;
+        USERESSCHEDULER = FALSE;
+    };
+
+    APPMODE = AppMode1;
+
+    TASK TaskA {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ;
+    };
+
+    TASK TaskB {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ;
+    };
+
+    TASK TaskC {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventP | EventQ;
+    };
+
+    TASK TaskD {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = EXTENDED;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+        EVENT = EventQ | EventR;
+    };
+
+    TASK TaskD {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    TASK TaskF {
+        PRIORITY = 3;
+        ACTIVATION = 10;
+        STACK = 512;
+        TYPE = BASIC;
+        SCHEDULE = FULL;
+        AUTOSTART = FALSE;
+    };
+
+    EVENT EventP {
+        MASK = AUTO;
+    };
+
+    EVENT EventQ {
+        MASK = 1;
+    };
+
+    EVENT EventR {
+        MASK = 2;
+    };
+
+    COUNTER CounterA {
+        MINCYCLE = 10;
+        MAXALLOWEDVALUE = 79;
+        TICKSPERBASE = 10;
+        COUNTERTYPE = SOFTWARE;
+    };
+
+    COUNTER CounterB {
+        MINCYCLE = 10;
+        MAXALLOWEDVALUE = 59;
+        TICKSPERBASE = 10;
+        COUNTERTYPE = SOFTWARE;
+    };
+
+    COUNTER CounterC {
+        MINCYCLE = 10;
+        MAXALLOWEDVALUE = 39;
+        TICKSPERBASE = 10;
+        COUNTERTYPE = SOFTWARE;
+    };
+
+    ALARM epAlarmA {
+        COUNTER = CounterA;
+        ACTION = EPCALLBACK {
+            ALARMCALLBACKNAME = "ExpiryPointCallbackFuncA";
+        };
+        AUTOSTART =FALSE;
+    };
+
+    ALARM epAlarmB {
+        COUNTER = CounterB;
+        ACTION = EPCALLBACK {
+            ALARMCALLBACKNAME = "ExpiryPointCallbackFuncB";
+        };
+        AUTOSTART =FALSE;
+    };
+
+    SCHEDULETABLE ScheduleTableA{
+        DURATION = 80;
+        INITOFFSET = 4;
+        FINALDELAY = 2;
+        SYNCSTRATEGY = EXPLICIT;
+        REPEATING = TRUE;
+        COUNTER = CounterA;
+        CALLBACKALARM = epAlarmA;
+        SYNCCOUNTER = CounterC;
+        EXPLICITPRECISION = 4;
+        EXPIRYPOINT EP1 {
+            OFFSET = 4;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            TASKACTIVATION = TaskB, TaskC;
+        };
+        EXPIRYPOINT EP2 {
+            OFFSET = 7;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            TASKACTIVATION = TaskB, TaskC;
+            EVENTSETTING E1 {
+                TASK = TaskC;
+                EVENT = EventQ;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskD;
+                EVENT = EventQ;
+            }
+        };
+        EXPIRYPOINT EP3 {
+            OFFSET = 25;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            EVENTSETTING E1 {
+                TASK = TaskA;
+                EVENT = EventP;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskB;
+                EVENT = EventQ;
+            }
+        };
+        EXPIRYPOINT EP4 {
+            OFFSET = 32;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            TASKACTIVATION = TaskD, TaskE, TaskF;
+        };
+        EXPIRYPOINT EP5 {
+            OFFSET = 45;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            EVENTSETTING E1 {
+                TASK = TaskD;
+                EVENT = EventR;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskB;
+                EVENT = EventQ;
+            }
+        };
+        EXPIRYPOINT EP6 {
+            OFFSET = 55;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            TASKACTIVATION = TaskA;
+        };
+        EXPIRYPOINT EP7 {
+            OFFSET = 64;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            TASKACTIVATION = TaskA, TaskB;
+            EVENTSETTING E1 {
+                TASK = TaskC;
+                EVENT = EventP;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskB;
+                EVENT = EventP;
+            }
+        };
+        EXPIRYPOINT EP8 {
+            OFFSET = 78;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            EVENTSETTING E1 {
+                TASK = TaskA;
+                EVENT = EventQ;
+            }
+            EVENTSETTING E2 {
+                TASK = TaskB;
+                EVENT = EventQ;
+            }
+        };
+        AUTOSTART =FALSE;
+    };
+
+    SCHEDULETABLE ScheduleTableB{
+        DURATION = 60;
+        INITOFFSET = 20;
+        FINALDELAY = 9;
+        SYNCSTRATEGY = EXPLICIT;
+        REPEATING = TRUE;
+        COUNTER = CounterB;
+        CALLBACKALARM = epAlarmB;
+        SYNCCOUNTER = CounterC;
+        EXPLICITPRECISION = 6;
+        EXPIRYPOINT EP1 {
+            OFFSET = 20;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            TASKACTIVATION = TaskA, TaskC;
+        };
+        EXPIRYPOINT EP2 {
+            OFFSET = 32;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            EVENTSETTING E1 {
+                TASK = TaskB;
+                EVENT = EventP;
+            }
+        };
+        EXPIRYPOINT EP3 {
+            OFFSET = 51;
+            MAXSHORTEN = 5;
+            MAXLENGTHEN = 5;
+            EVENTSETTING E1 {
+                TASK = TaskD;
+                EVENT = EventQ;
+            }
+        };
+        AUTOSTART =FALSE;
+    };
+
+};

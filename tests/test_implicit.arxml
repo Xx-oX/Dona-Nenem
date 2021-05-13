@@ -29,9 +29,6 @@
                 <EVENT>
                   <SHORT-NAME>EventP</SHORT-NAME>
                 </EVENT>
-                <EVENT>
-                  <SHORT-NAME>EventQ</SHORT-NAME>
-                </EVENT>
                 <AUTOSTART>
                     <VALUE>FALSE</VALUE>
                 </AUTOSTART>
@@ -45,9 +42,6 @@
                 <SCHEDULE>FULL</SCHEDULE>
                 <EVENT>
                   <SHORT-NAME>EventP</SHORT-NAME>
-                </EVENT>
-                <EVENT>
-                  <SHORT-NAME>EventQ</SHORT-NAME>
                 </EVENT>
                 <AUTOSTART>
                     <VALUE>FALSE</VALUE>
@@ -66,31 +60,23 @@
                 <EVENT>
                   <SHORT-NAME>EventQ</SHORT-NAME>
                 </EVENT>
-                <EVENT>
-                  <SHORT-NAME>EventR</SHORT-NAME>
-                </EVENT>
                 <AUTOSTART>
                     <VALUE>FALSE</VALUE>
                 </AUTOSTART>
             </TASK>
             <TASK>
                 <SHORT-NAME>TaskD</SHORT-NAME>
-                <PRIORITY>4</PRIORITY>
+                <PRIORITY>3</PRIORITY>
                 <ACTIVATION>10</ACTIVATION>
                 <STACK>512</STACK>
-                <TYPE>BASIC</TYPE>
+                <TYPE>EXTENDED</TYPE>
                 <SCHEDULE>FULL</SCHEDULE>
-                <AUTOSTART>
-                    <VALUE>FALSE</VALUE>
-                </AUTOSTART>
-            </TASK>
-            <TASK>
-                <SHORT-NAME>TaskE</SHORT-NAME>
-                <PRIORITY>4</PRIORITY>
-                <ACTIVATION>10</ACTIVATION>
-                <STACK>512</STACK>
-                <TYPE>BASIC</TYPE>
-                <SCHEDULE>FULL</SCHEDULE>
+                <EVENT>
+                  <SHORT-NAME>EventP</SHORT-NAME>
+                </EVENT>
+                <EVENT>
+                  <SHORT-NAME>EventQ</SHORT-NAME>
+                </EVENT>s
                 <AUTOSTART>
                     <VALUE>FALSE</VALUE>
                 </AUTOSTART>
@@ -108,10 +94,6 @@
                 <SHORT-NAME>EventQ</SHORT-NAME>
                 <MASK>1</MASK>
             </EVENT>
-            <EVENT>
-              <SHORT-NAME>EventR</SHORT-NAME>
-              <MASK>23</MASK>
-            </EVENT>
         </ELEMENTS>
     </AR-PACKAGE>
     <AR-PACKAGE>
@@ -120,14 +102,14 @@
             <COUNTER>
                 <SHORT-NAME>CounterA</SHORT-NAME>
                 <MINCYCLE>10</MINCYCLE>
-                <MAXALLOWEDVALUE>59</MAXALLOWEDVALUE>
+                <MAXALLOWEDVALUE>39</MAXALLOWEDVALUE>
                 <TICKSPERBASE>10</TICKSPERBASE>
                 <TYPE>SOFTWARE</TYPE>
             </COUNTER>
             <COUNTER>
                 <SHORT-NAME>CounterB</SHORT-NAME>
                 <MINCYCLE>10</MINCYCLE>
-                <MAXALLOWEDVALUE>39</MAXALLOWEDVALUE>
+                <MAXALLOWEDVALUE>49</MAXALLOWEDVALUE>
                 <TICKSPERBASE>10</TICKSPERBASE>
                 <TYPE>SOFTWARE</TYPE>
             </COUNTER>
@@ -169,10 +151,10 @@
         <ELEMENTS>
             <SCHEDULETABLE>
                 <SHORT-NAME>ScheduleTableA</SHORT-NAME>
-                <DURATION>60</DURATION>
-                <INITOFFSET>2</INITOFFSET>
-                <FINALDELAY>18</FINALDELAY>
-                <SYNCSTRATEGY>NONE</SYNCSTRATEGY>
+                <DURATION>40</DURATION>
+                <INITOFFSET>7</INITOFFSET>
+                <FINALDELAY>11</FINALDELAY>
+                <SYNCSTRATEGY>IMPLICIT</SYNCSTRATEGY>
                 <REPEATING>TRUE</REPEATING>
                 <COUNTER>
                     <SHORT-NAME>CounterA</SHORT-NAME>
@@ -182,53 +164,31 @@
                     <ELEMENTS>
                         <EXPIRYPOINT>
                             <SHORT-NAME>EP1</SHORT-NAME>
-                            <OFFSET>2</OFFSET>
-                            <MAXSHORTEN>0</MAXSHORTEN>
-                            <MAXLENGTHEN>0</MAXLENGTHEN>
-                            <EVENTSETTINGS>
-                              <ELEMENTS>
-                                <EVENTSETTING>
-                                  <SHORT-NAME>E1</SHORT-NAME>
-                                  <TASK>
-                                      <SHORT-NAME>TaskA</SHORT-NAME>
-                                  </TASK>
-                                  <EVENT>
-                                      <SHORT-NAME>EventP</SHORT-NAME>
-                                  </EVENT>
-                                </EVENTSETTING>
-                                <EVENTSETTING>
-                                  <SHORT-NAME>E2</SHORT-NAME>
-                                  <TASK>
-                                      <SHORT-NAME>TaskB</SHORT-NAME>
-                                  </TASK>
-                                  <EVENT>
-                                      <SHORT-NAME>EventQ</SHORT-NAME>
-                                  </EVENT>
-                                </EVENTSETTING>
-                              </ELEMENTS>
-                            </EVENTSETTINGS>
-                        </EXPIRYPOINT>
-                        <EXPIRYPOINT>
-                            <SHORT-NAME>EP2</SHORT-NAME>
-                            <OFFSET>11</OFFSET>
+                            <OFFSET>7</OFFSET>
                             <MAXSHORTEN>0</MAXSHORTEN>
                             <MAXLENGTHEN>0</MAXLENGTHEN>
                             <TASKACTIVATION>
                               <ELEMENTS>
                                 <TASK>
-                                  <SHORT-NAME>TaskC</SHORT-NAME>
+                                  <SHORT-NAME>TaskA</SHORT-NAME>
                                 </TASK>
                                 <TASK>
-                                  <SHORT-NAME>TaskD</SHORT-NAME>
+                                  <SHORT-NAME>TaskB</SHORT-NAME>
                                 </TASK>
                               </ELEMENTS>
                             </TASKACTIVATION>
+                        </EXPIRYPOINT>
+                        <EXPIRYPOINT>
+                            <SHORT-NAME>EP2</SHORT-NAME>
+                            <OFFSET>24</OFFSET>
+                            <MAXSHORTEN>0</MAXSHORTEN>
+                            <MAXLENGTHEN>0</MAXLENGTHEN>
                             <EVENTSETTINGS>
                                 <ELEMENTS>
                                     <EVENTSETTING>
                                         <SHORT-NAME>E1</SHORT-NAME>
                                         <TASK>
-                                            <SHORT-NAME>TaskB</SHORT-NAME>
+                                            <SHORT-NAME>TaskA</SHORT-NAME>
                                         </TASK>
                                         <EVENT>
                                             <SHORT-NAME>EventP</SHORT-NAME>
@@ -237,19 +197,10 @@
                                     <EVENTSETTING>
                                         <SHORT-NAME>E2</SHORT-NAME>
                                         <TASK>
-                                            <SHORT-NAME>TaskA</SHORT-NAME>
-                                        </TASK>
-                                        <EVENT>
-                                            <SHORT-NAME>EventQ</SHORT-NAME>
-                                        </EVENT>
-                                    </EVENTSETTING>
-                                    <EVENTSETTING>
-                                        <SHORT-NAME>E3</SHORT-NAME>
-                                        <TASK>
                                             <SHORT-NAME>TaskC</SHORT-NAME>
                                         </TASK>
                                         <EVENT>
-                                            <SHORT-NAME>EventP</SHORT-NAME>
+                                            <SHORT-NAME>EventQ</SHORT-NAME>
                                         </EVENT>
                                     </EVENTSETTING>
                                 </ELEMENTS>
@@ -257,9 +208,16 @@
                         </EXPIRYPOINT>
                         <EXPIRYPOINT>
                             <SHORT-NAME>EP3</SHORT-NAME>
-                            <OFFSET>26</OFFSET>
+                            <OFFSET>29</OFFSET>
                             <MAXSHORTEN>0</MAXSHORTEN>
                             <MAXLENGTHEN>0</MAXLENGTHEN>
+                            <TASKACTIVATION>
+                              <ELEMENTS>
+                                <TASK>
+                                  <SHORT-NAME>TaskC</SHORT-NAME>
+                                </TASK>
+                              </ELEMENTS>
+                            </TASKACTIVATION>
                             <EVENTSETTINGS>
                                 <ELEMENTS>
                                     <EVENTSETTING>
@@ -268,56 +226,12 @@
                                             <SHORT-NAME>TaskB</SHORT-NAME>
                                         </TASK>
                                         <EVENT>
-                                            <SHORT-NAME>EventQ</SHORT-NAME>
-                                        </EVENT>
-                                    </EVENTSETTING>
-                                    <EVENTSETTING>
-                                        <SHORT-NAME>E2</SHORT-NAME>
-                                        <TASK>
-                                            <SHORT-NAME>TaskC</SHORT-NAME>
-                                        </TASK>
-                                        <EVENT>
-                                            <SHORT-NAME>EventR</SHORT-NAME>
+                                            <SHORT-NAME>EventP</SHORT-NAME>
                                         </EVENT>
                                     </EVENTSETTING>
                                 </ELEMENTS>
                             </EVENTSETTINGS>
                         </EXPIRYPOINT>
-                        <EXPIRYPOINT>
-                            <SHORT-NAME>EP4</SHORT-NAME>
-                            <OFFSET>33</OFFSET>
-                            <MAXSHORTEN>0</MAXSHORTEN>
-                            <MAXLENGTHEN>0</MAXLENGTHEN>
-                            <TASKACTIVATION>
-                              <ELEMENTS>
-                                <TASK>
-                                  <SHORT-NAME>TaskE</SHORT-NAME>
-                                </TASK>
-                                <TASK>
-                                  <SHORT-NAME>TaskC</SHORT-NAME>
-                                </TASK>
-                              </ELEMENTS>
-                            </TASKACTIVATION>
-                          </EXPIRYPOINT>
-                          <EXPIRYPOINT>
-                              <SHORT-NAME>EP5</SHORT-NAME>
-                              <OFFSET>42</OFFSET>
-                              <MAXSHORTEN>0</MAXSHORTEN>
-                              <MAXLENGTHEN>0</MAXLENGTHEN>
-                              <EVENTSETTINGS>
-                                  <ELEMENTS>
-                                      <EVENTSETTING>
-                                          <SHORT-NAME>E1</SHORT-NAME>
-                                          <TASK>
-                                              <SHORT-NAME>TaskC</SHORT-NAME>
-                                          </TASK>
-                                          <EVENT>
-                                              <SHORT-NAME>EventQ</SHORT-NAME>
-                                          </EVENT>
-                                      </EVENTSETTING>
-                                  </ELEMENTS>
-                              </EVENTSETTINGS>
-                          </EXPIRYPOINT>
                     </ELEMENTS>
                 </EXPIRYPOINTS>
                 <AUTOSTART>
@@ -326,10 +240,10 @@
             </SCHEDULETABLE>
             <SCHEDULETABLE>
                 <SHORT-NAME>ScheduleTableB</SHORT-NAME>
-                <DURATION>40</DURATION>
-                <INITOFFSET>13</INITOFFSET>
-                <FINALDELAY>27</FINALDELAY>
-                <SYNCSTRATEGY>NONE</SYNCSTRATEGY>
+                <DURATION>50</DURATION>
+                <INITOFFSET>19</INITOFFSET>
+                <FINALDELAY>4</FINALDELAY>
+                <SYNCSTRATEGY>IMPLICIT</SYNCSTRATEGY>
                 <REPEATING>TRUE</REPEATING>
                 <COUNTER>
                     <SHORT-NAME>CounterB</SHORT-NAME>
@@ -339,19 +253,69 @@
                     <ELEMENTS>
                         <EXPIRYPOINT>
                             <SHORT-NAME>EP1</SHORT-NAME>
-                            <OFFSET>13</OFFSET>
+                            <OFFSET>19</OFFSET>
+                            <MAXSHORTEN>0</MAXSHORTEN>
+                            <MAXLENGTHEN>0</MAXLENGTHEN>
+                            <EVENTSETTINGS>
+                                <ELEMENTS>
+                                    <EVENTSETTING>
+                                        <SHORT-NAME>E1</SHORT-NAME>
+                                        <TASK>
+                                            <SHORT-NAME>TaskC</SHORT-NAME>
+                                        </TASK>
+                                        <EVENT>
+                                            <SHORT-NAME>EventP</SHORT-NAME>
+                                        </EVENT>
+                                    </EVENTSETTING>
+                                    <EVENTSETTING>
+                                        <SHORT-NAME>E2</SHORT-NAME>
+                                        <TASK>
+                                            <SHORT-NAME>TaskD</SHORT-NAME>
+                                        </TASK>
+                                        <EVENT>
+                                            <SHORT-NAME>EventP</SHORT-NAME>
+                                        </EVENT>
+                                    </EVENTSETTING>
+                                </ELEMENTS>
+                            </EVENTSETTINGS>
+                        </EXPIRYPOINT>
+                        <EXPIRYPOINT>
+                            <SHORT-NAME>EP2</SHORT-NAME>
+                            <OFFSET>46</OFFSET>
                             <MAXSHORTEN>0</MAXSHORTEN>
                             <MAXLENGTHEN>0</MAXLENGTHEN>
                             <TASKACTIVATION>
-                                <ELEMENTS>
-                                    <TASK>
-                                        <SHORT-NAME>TaskA</SHORT-NAME>
-                                    </TASK>
-                                    <TASK>
-                                        <SHORT-NAME>TaskB</SHORT-NAME>
-                                    </TASK>
-                                </ELEMENTS>
+                              <ELEMENTS>
+                                <TASK>
+                                  <SHORT-NAME>TaskA</SHORT-NAME>
+                                </TASK>
+                                <TASK>
+                                  <SHORT-NAME>TaskB</SHORT-NAME>
+                                </TASK>
+                              </ELEMENTS>
                             </TASKACTIVATION>
+                            <EVENTSETTINGS>
+                                <ELEMENTS>
+                                    <EVENTSETTING>
+                                        <SHORT-NAME>E1</SHORT-NAME>
+                                        <TASK>
+                                            <SHORT-NAME>TaskC</SHORT-NAME>
+                                        </TASK>
+                                        <EVENT>
+                                            <SHORT-NAME>EventQ</SHORT-NAME>
+                                        </EVENT>
+                                    </EVENTSETTING>
+                                    <EVENTSETTING>
+                                        <SHORT-NAME>E2</SHORT-NAME>
+                                        <TASK>
+                                            <SHORT-NAME>TaskD</SHORT-NAME>
+                                        </TASK>
+                                        <EVENT>
+                                            <SHORT-NAME>EventQ</SHORT-NAME>
+                                        </EVENT>
+                                    </EVENTSETTING>
+                                </ELEMENTS>
+                            </EVENTSETTINGS>
                         </EXPIRYPOINT>
                     </ELEMENTS>
                 </EXPIRYPOINTS>
