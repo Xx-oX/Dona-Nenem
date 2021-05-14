@@ -153,7 +153,7 @@ def gen(AST, file):
                 fp.write("            ALARMCALLBACKNAME = \"" + alarmAction.find("ALARMCALLBACKNAME").text + "\";\n")
             fp.write("        };\n")
 
-            fp.write("        AUTOSTART =" + alarm.find("AUTOSTART").find("VALUE").text)
+            fp.write("        AUTOSTART = " + alarm.find("AUTOSTART").find("VALUE").text)
             if alarm.find("AUTOSTART").find("VALUE").text == "TRUE":
                 fp.write(" {\n")
                 fp.write("            ALARMTIME = " + alarm.find("AUTOSTART").find("ALARMTIME").text + ";\n")
@@ -222,7 +222,7 @@ def gen(AST, file):
 
                 fp.write("        };\n")
 
-            fp.write("        AUTOSTART =" + alarm.find("AUTOSTART").find("VALUE").text)
+            fp.write("        AUTOSTART = " + alarm.find("AUTOSTART").find("VALUE").text)
             if alarm.find("AUTOSTART").find("VALUE").text == "TRUE":
                 fp.write(" {\n")
                 fp.write("            AUTOSTARTTYPE = " + st.find("AUTOSTART").find("TYPE").text + ";\n")
