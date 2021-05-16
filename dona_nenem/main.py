@@ -222,8 +222,8 @@ def gen(AST, file):
 
                 fp.write("        };\n")
 
-            fp.write("        AUTOSTART = " + alarm.find("AUTOSTART").find("VALUE").text)
-            if alarm.find("AUTOSTART").find("VALUE").text == "TRUE":
+            fp.write("        AUTOSTART = " + st.find("AUTOSTART").find("VALUE").text)
+            if st.find("AUTOSTART").find("VALUE").text == "TRUE":
                 fp.write(" {\n")
                 fp.write("            AUTOSTARTTYPE = " + st.find("AUTOSTART").find("TYPE").text + ";\n")
                 fp.write("            APPMODE = " + st.find("AUTOSTART").find("APPMODE").text + ";\n")
